@@ -1,2 +1,2 @@
 ﻿# glowing-broccoli
-Access a webpage content and send requests programmatically
+A python script to download manga automatically using beautifulsoap and urllib2.
