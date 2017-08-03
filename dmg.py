@@ -5,13 +5,19 @@ import requests
 from bs4 import BeautifulSoup
 manga='one-piece'
 chapter =871
-page=1
+page=18
 checker =0
-while checker != 2:
+while checker != 1:
 	pageDirectory=manga+'/'+str(chapter)+'/'+str(page)
 	link='http://www.mangapanda.com/'+pageDirectory
 	print link
-	pageLink=urllib2.urlopen(link)
+	try:
+		pageLink=urllib2.urlopen(link)
+	except urllib2.HTTPError, e:
+		print(e.code)
+		chapter = chapter + 1;
+		page = 1
+		continue
 	soup = BeautifulSoup(pageLink, "lxml")
 	imageLinkString=soup.find('img', id='img')
 	#print imageLinkString
@@ -34,8 +40,6 @@ while checker != 2:
 		page = page+1;
 		print imageLink
 	else :
-		checker=checker+1
-		if checker!=2:
-			chapter = chapter + 1
-			page =1
-
+		#the manga has not been released yet or has been concluded
+		#TODO: save the chapter number to resume downloading when the chapter is released
+		checker =1
