@@ -12,4 +12,5 @@ Prerequisites: python 2.7+ and beautifulsoap library for python.
 apt-get install python-bs4
 2. Navigate to the directory where dmg.py file present and it executable:
 chmod +x dmg.py
+3. Then run it using: ./dmg.py
 
