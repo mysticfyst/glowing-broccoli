@@ -8,5 +8,8 @@ A python script to download mangas automatically using beautifulsoap and urllib2
 Only runs on linux.
 
 Prerequisites: python 2.7+ and beautifulsoap library for python.
-Run the following command in the terminal to download beautifulsoap library:
+1. Run the following command in the terminal to download beautifulsoap library:
 apt-get install python-bs4
+2. Navigate to the directory where dmg.py file present and it executable:
+chmod +x dmg.py
+
