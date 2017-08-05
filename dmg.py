@@ -6,7 +6,7 @@ import json
 import requests
 from bs4 import BeautifulSoup
 
-INFO_FILE='manga_info.json'
+INFO_FILE=os.path.dirname(os.path.abspath(__file__))+'/manga_info.json'
 DEFAULT_LINUX_PATH='/home/'+os.getlogin()
 #DEFAULT_WINDOWS_PATH='C:\\Manga\\'
 
@@ -32,15 +32,6 @@ for i in range(0,noOfMangas,1):
 		try:
 			pageLink=urllib2.urlopen(link)
 			#print link
-			#try creating a directory for the current chapter in the manga if it doesn't exist
-			if page == 1:
-				try:
-					chapterDirectory=mangaDirectory+'/'+str(chapter)
-					os.makedirs(chapterDirectory)
-					print "Downloading chapter "+str(chapter)+" of "+manga+"."
-				except OSError as e:
-					if e.errno != errno.EEXIST:
-						raise
 			#the following will run on reaching the end of the chapter
 		except urllib2.HTTPError, e:
 			#print(e.code)
@@ -52,6 +43,16 @@ for i in range(0,noOfMangas,1):
 		imageLinkString=soup.find('img', id='img')
 		#if imageLinkString is not None then it contains an image which will be downloaded
 		if str(imageLinkString) != 'None':
+	#try creating a directory for the current chapter in the manga if it doesn't exist
+			if page == 1:
+				try:
+					print 'Yay!'
+					chapterDirectory=mangaDirectory+'/'+str(chapter)
+					os.makedirs(chapterDirectory)
+					print "Downloading chapter "+str(chapter)+" of "+manga+"."
+				except OSError as e:
+					if e.errno != errno.EEXIST:
+						raise
 			checker = 0;
 			imageLink=imageLinkString.get("src")
 			#somehow the following line doesn't work
@@ -70,8 +71,8 @@ for i in range(0,noOfMangas,1):
 			page = page+1;
 			print imageLink
 		else :
-			#imageLinkString prints None if trying to access a n+1th chapter of manga with n chapters
-			print "Chapter "+str(chapter+1)+" of "+manga+" has been concluded or not yet released."
+			#imageLinkString prints "None" if trying to access a n+1th chapter of manga with n chapters
+			print "Chapter "+str(chapter)+" of "+manga+" has not yet been released or the series has been concluded."
 			with open(INFO_FILE, 'w') as out:
     				json.dump(pyDict, out)
 			checker =1
