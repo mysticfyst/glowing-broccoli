@@ -43,7 +43,7 @@ for i in range(0,noOfMangas,1):
 		imageLinkString=soup.find('img', id='img')
 		#if imageLinkString is not None then it contains an image which will be downloaded
 		if str(imageLinkString) != 'None':
-			#try creating a directory for the current chapter in the manga if it doesn't exist
+	#try creating a directory for the current chapter in the manga if it doesn't exist
 			if page == 1:
 				try:
 					print 'Yay!'
